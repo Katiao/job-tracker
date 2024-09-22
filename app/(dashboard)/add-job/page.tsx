@@ -1,5 +1,6 @@
 import React from "react";
+import CreateJobForm from "@/components/createJobForm";
 
 export default function AddJobPage() {
-  return <h1>Add Job</h1>;
+  return <CreateJobForm />;
 }
