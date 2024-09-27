@@ -85,14 +85,21 @@ export async function getAllJobsAction({
       };
     }
 
+    const skip = (page - 1) * limit;
+
     const jobs: JobType[] = await prisma.job.findMany({
       where: whereClause,
+      skip,
+      take: limit,
       orderBy: {
         createdAt: "desc",
       },
     });
-
-    return { jobs, count: 0, page: 1, totalPages: 0 };
+    const count: number = await prisma.job.count({
+      where: whereClause,
+    });
+    const totalPages = Math.ceil(count / limit);
+    return { jobs, count, page, totalPages };
   } catch (error) {
     console.error(error);
     return { jobs: [], count: 0, page: 1, totalPages: 0 };
@@ -170,7 +177,7 @@ export async function getStatsAction(): Promise<{
   // await new Promise((resolve) => setTimeout(resolve, 5000));
   try {
     const stats = await prisma.job.groupBy({
-      by: ['status'],
+      by: ["status"],
       _count: {
         status: true,
       },
@@ -194,7 +201,7 @@ export async function getStatsAction(): Promise<{
     return defaultStats;
   } catch (error) {
     console.log(error);
-    redirect('/jobs');
+    redirect("/jobs");
   }
 }
 
@@ -202,7 +209,7 @@ export async function getChartsDataAction(): Promise<
   Array<{ date: string; count: number }>
 > {
   const userId = authenticateAndRedirect();
-  const sixMonthsAgo = dayjs().subtract(6, 'month').toDate();
+  const sixMonthsAgo = dayjs().subtract(6, "month").toDate();
 
   try {
     const jobs = await prisma.job.findMany({
@@ -213,12 +220,12 @@ export async function getChartsDataAction(): Promise<
         },
       },
       orderBy: {
-        createdAt: 'asc',
+        createdAt: "asc",
       },
     });
 
     const applicationsPerMonth = jobs.reduce((acc, job) => {
-      const date = dayjs(job.createdAt).format('MMM YY');
+      const date = dayjs(job.createdAt).format("MMM YY");
 
       const existingEntry = acc.find((entry) => entry.date === date);
 
@@ -234,6 +241,6 @@ export async function getChartsDataAction(): Promise<
     return applicationsPerMonth;
   } catch (error) {
     console.log(error);
-    redirect('/jobs');
+    redirect("/jobs");
   }
 }
