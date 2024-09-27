@@ -36,7 +36,7 @@ function SearchContainer() {
 
   return (
     <form
-      className="bg-muted mb-16 p-8 grid sm:grid-cols-2 md:grid-cols-3  gap-4 rounded-lg"
+      className="bg-muted mb-16 p-8 grid sm:grid-cols-2 md:grid-cols-3 gap-4 rounded-lg"
       onSubmit={handleSubmit}
     >
       <Input
@@ -44,10 +44,10 @@ function SearchContainer() {
         placeholder="Search Jobs"
         name="search"
         defaultValue={search}
-        className="bg-white"
+        className="bg-background text-foreground"
       />
       <Select defaultValue={jobStatus} name="jobStatus">
-        <SelectTrigger className="bg-white">
+        <SelectTrigger className="bg-background text-foreground">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
