@@ -14,13 +14,13 @@ export default function Home() {
       <section className="max-w-6xl mx-auto px-4 sm:px-8 h-screen -mt-20 grid lg:grid-cols-[1fr,400px] items-center">
         <div>
           <h1 className="capitalize text-4xl md:text-7xl font-bold">
-            job <span className="text-primary">tracking</span> app
+            job <span className="text-primary">tracker</span>
           </h1>
           <p className="leading-loose max-w-md mt-4 ">
-            I am baby wayfarers hoodie next level taiyaki brooklyn cliche blue
-            bottle single-origin coffee chia. Aesthetic post-ironic venmo,
-            quinoa lo-fi tote bag adaptogen everyday carry meggings +1 brunch
-            narwhal.
+            Your all-in-one solution for managing job applications. Log
+            submissions, track statuses, and view application stats at a glance.
+            Stay organized and never miss an opportunity in your job search
+            journey.
           </p>
           <Button asChild className="mt-4">
             <Link href="/add-job">Get Started</Link>
